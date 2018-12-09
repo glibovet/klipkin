@@ -29,7 +29,6 @@ public class LinkedDocument extends Document {
         return Objects.hash(ID);
     }
 
-
     private String[] findOutgoingIDs(String text) {
         String[] arr = new String[substringCount(text, "link:")];
         int j = 0;
@@ -54,14 +53,27 @@ public class LinkedDocument extends Document {
 
     private int substringCount(String s, String pattern) {
 
-        int result = 0;
+        int lastIndex = 0;
+        int count = 0;
+
+        while(lastIndex != -1){
+
+            lastIndex = s.indexOf(pattern,lastIndex);
+
+            if(lastIndex != -1){
+                count ++;
+                lastIndex += pattern.length();
+            }
+        }
+        return count;
+        /*int result = 0;
         for (int i = 0; i < s.length(); i++) {
             if (s.substring(i, i + pattern.length()).equalsIgnoreCase(pattern)) {
                 result++;
                 i += pattern.length();
             }
         }
-        return result;
+        return result;*/
     }
 
     private void setLinkCountZero() {
