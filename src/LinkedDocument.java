@@ -16,6 +16,17 @@ public class LinkedDocument extends Document {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LinkedDocument that = (LinkedDocument) o;
+
+        return ID != null ? ID.equals(that.ID) : that.ID == null;
+    }
+
+
+    /**@Override
     public boolean equals(Document doc)
     {
         if (doc instanceof LinkedDocument) {
@@ -28,7 +39,9 @@ public class LinkedDocument extends Document {
 
         else
           return super.equals(doc);
-    }
+    }*/
+
+
 
     private String[] findOutgoingIDs(String text)
     {
