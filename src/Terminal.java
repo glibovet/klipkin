@@ -1,12 +1,16 @@
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
  * Diese Klasse stellt einige einfache Methoden zur Ein- und Ausgabe auf einem
  * Terminal zur Verf&uuml;gung.
- * 
+ *
  */
 public final class Terminal {
 
@@ -47,9 +51,12 @@ public final class Terminal {
   /** Fehlermeldung bei Eingabe einzeiliger Matrizen */
   private static final String ERROR_ONE_LINE_ARRAY = "Eine Matrix muss mindestens zwei Zeilen besitzen! (Nochmal eingeben) ";
 
+  /** Fehler beim Lesen einer Datei */
+  private static final String ERROR_READ_FILE = "Fehler beim Lesen der Datei! ";
+
   /**
    * Liest eine Zeichenkette vom Terminal.
-   * 
+   *
    * @return das gelesene Zeichen. Modifiziert von A. L ochbihler, damit kein
    *         Null-String mehr zurueckgegeben wird.
    */
@@ -63,7 +70,7 @@ public final class Terminal {
 
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe einer Zeichenkette.
-   * 
+   *
    * @param prompt die auszugebende Zeichenkette.
    * @return die eingegebene Zeichenkette.
    */
@@ -74,7 +81,7 @@ public final class Terminal {
 
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe einer Zeichenkette.
-   * 
+   *
    * @param prompt die auszugebende Zeichenkette.
    * @return die eingegebene Zeichenkette.
    */
@@ -86,7 +93,7 @@ public final class Terminal {
    * Liest einen Wahrheitswert vom Terminal. Die Zeichenkette "true"
    * (unabh&auml;ngig von Gro&szlig;-/Kleinschreibung) liefert true, alles andere
    * false.
-   * 
+   *
    * @return der eingegebene Wert.
    */
   public static boolean readBoolean() {
@@ -97,7 +104,7 @@ public final class Terminal {
    * Gibt eine Zeichenkette aus und erwartet die Eingabe eines Wahrheitswerts. Die
    * Zeichenkette "true" (unabh&auml;ngig von Gro&szlig;-/Kleinschreibung) liefert
    * true, alles andere false.
-   * 
+   *
    * @param prompt die auszugebende Zeichenkette.
    * @return der eingegebene Wert.
    */
@@ -108,7 +115,7 @@ public final class Terminal {
 
   /**
    * Liest ein Zeichen vom Terminal. Zeilenumbruche zaehlen als eigene Zeichen.
-   * 
+   *
    * @return das gelesene Zeichen.
    */
   public static char readChar() {
@@ -125,7 +132,7 @@ public final class Terminal {
 
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe eines Zeichens.
-   * 
+   *
    * @param prompt die auszugebende Zeichenkette.
    * @return das eingegebene Zeichen.
    */
@@ -136,7 +143,7 @@ public final class Terminal {
 
   /**
    * Liest eine ganze Zahl (8 Bit) vom Terminal.
-   * 
+   *
    * @return die gelesene Zahl.
    */
   public static byte readByte() {
@@ -154,7 +161,7 @@ public final class Terminal {
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe einer ganzen Zahl (8
    * Bit).
-   * 
+   *
    * @param prompt die auszugebende Zeichenkette.
    * @return die eingegebene Zahl.
    */
@@ -165,7 +172,7 @@ public final class Terminal {
 
   /**
    * Liest eine ganze Zahl (16 Bit) vom Terminal.
-   * 
+   *
    * @return die gelesene Zahl.
    */
   public static short readShort() {
@@ -183,7 +190,7 @@ public final class Terminal {
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe einer ganzen Zahl (16
    * Bit).
-   * 
+   *
    * @param prompt die auszugebende Zeichenkette.
    * @return die eingegebene Zahl.
    */
@@ -194,7 +201,7 @@ public final class Terminal {
 
   /**
    * Liest eine ganze Zahl (32 Bit) vom Terminal.
-   * 
+   *
    * @return die gelesene Zahl.
    */
   public static int readInt() {
@@ -212,7 +219,7 @@ public final class Terminal {
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe einer ganzen Zahl (32
    * Bit).
-   * 
+   *
    * @param prompt die auszugebende Zeichenkette.
    * @return die eingegebene Zahl.
    */
@@ -223,7 +230,7 @@ public final class Terminal {
 
   /**
    * Liest eine ganze Zahl (64 Bit) vom Terminal.
-   * 
+   *
    * @return die gelesene Zahl.
    */
   public static long readLong() {
@@ -241,7 +248,7 @@ public final class Terminal {
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe einer ganzen Zahl (64
    * Bit).
-   * 
+   *
    * @param prompt die auszugebende Zeichenkette.
    * @return die eingegebene Zahl.
    */
@@ -252,7 +259,7 @@ public final class Terminal {
 
   /**
    * Liest eine Gleitpunktzahl(32 Bit) vom Terminal.
-   * 
+   *
    * @return die gelesene Zahl.
    */
   public static float readFloat() {
@@ -270,7 +277,7 @@ public final class Terminal {
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe einer Gleitpunktzahl
    * einfacher Genauigkeit (32 Bit).
-   * 
+   *
    * @param prompt die auszugebende Zeichenkette.
    * @return die eingegebene Gleitpunktzahl.
    */
@@ -281,7 +288,7 @@ public final class Terminal {
 
   /**
    * Liest eine Gleitpunktzahl(64 Bit) vom Terminal.
-   * 
+   *
    * @return die gelesene Zahl.
    */
   public static double readDouble() {
@@ -299,7 +306,7 @@ public final class Terminal {
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe einer Gleitpunktzahl
    * doppelter Genauigkeit (64 Bit).
-   * 
+   *
    * @param prompt die auszugebende Zeichenkette.
    * @return die eingegebene Gleitpunktzahl.
    */
@@ -310,7 +317,7 @@ public final class Terminal {
 
   /**
    * Liest ein Integer-Array vom Terminal.
-   * 
+   *
    * @return array das gelesene Array.
    * @throws NumberFormatException bei falschem Zahlenformat.
    */
@@ -337,7 +344,7 @@ public final class Terminal {
 
   /**
    * Liest eine Integer-Matrix vom Terminal.
-   * 
+   *
    * @return matrix die gelesene Matrix..
    */
   public static int[][] readIntMatrix() {
@@ -381,7 +388,7 @@ public final class Terminal {
 
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe eines Integer Arrays.
-   * 
+   *
    * @param prompt die anzuzeigende Eingabeaufforderung
    * @return das gelesene Array.
    */
@@ -392,7 +399,7 @@ public final class Terminal {
 
   /**
    * Gibt eine Zeichenkette aus und erwartet die Eingabe einer Integer Matrix.
-   * 
+   *
    * @param prompt die anzuzeigende Eingabeaufforderung
    * @return die gelesene Matrix.
    */
@@ -403,7 +410,7 @@ public final class Terminal {
 
   /**
    * Liest eine Zeile von der Eingabe und spaltet Sie an whitespace-Zeichen auf.
-   * 
+   *
    * @return Array von Strings, die die
    */
   private static String[] getTokens() {
@@ -441,4 +448,43 @@ public final class Terminal {
    * a newline according to the used operating system
    */
   public static final String NEWLINE = System.getProperty("line.separator");
+
+  /**
+   * Liest die einzelnen Zeilen der Datei <code>fileName</code> und liefert die
+   * einzelnen in der entsprechenden Reihenfolge als {@link String}-Array zurueck.
+   * Der Rueckgabewert ist <code>null</code>, falls die Datei nicht exisitiert
+   * oder nicht gelesen werden kann.
+   *
+   * @param fileName die zu lesende Datei
+   * @return die Zeilen der zu lesenden Datei als {@link String}-Array oder
+   *         <code>null</code>, falls die Datei nicht existiert oder nicht gelesen
+   *         werden kann.
+   */
+  public static String[] readFile(String fileName) {
+    BufferedReader bufferedReader;
+
+    try {
+      bufferedReader = new BufferedReader(new FileReader(fileName));
+    } catch (FileNotFoundException e) {
+      System.err.println(ERROR_READ_FILE + "(" + fileName + ") (" + e + ")");
+      return null;
+    }
+
+    List<String> lines = new LinkedList<String>();
+
+    try {
+      String line = bufferedReader.readLine();
+
+      while (line != null) {
+        lines.add(line);
+        line = bufferedReader.readLine();
+      }
+    } catch (IOException e) {
+      System.err.println(ERROR_READ_FILE + "(" + fileName + ") (" + e + ")");
+      return null;
+    }
+
+    return lines.toArray(new String[0]);
+
+  }
 }
