@@ -1,0 +1,2 @@
+WordCount, WordcounyArray, DocumentCollection,Document,DocumentCollectionCell- все Классы мы писали в прошлых работах.
+Для класса Document также нужен класс Data, Autor..., но я их не стал скидывать, так как для этого задания они не нужны. 

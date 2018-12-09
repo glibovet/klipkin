@@ -1,0 +1,95 @@
+Целью этой задачи является создание структуры ссылок между различными Документами.
+Таким образом, возможно, что документ будет указывать на другие документы и, таким образом, «рекомендует» их определенным образом.
+
+
+Поэтому напишите следующие классы и методы
+
+
+Klasse LinkedDocument:
+
+1 public String getID()
+2 public boolean equals(Document doc)
+3 private String[] findOutgoingIDs(String text)
+4 private void setLinkCountZero()
+5 public void addIncomingLink(LinkedDocument incomingLink)
+6 public static LinkedDocument createLinkedDocumentFromFile(String fileName)
+7 private void createOutgoingDocumentCollection()
+8 public LinkedDocumentCollection getOutgoingLinks()
+9 public LinkedDocumentCollection getIncomingLinks()
+
+Klasse LinkedDocumentCollection:
+
+1 public void prependDocument(Document doc)
+2 public void appendDocument(Document doc)
+3 public void calculateIncomingLinks()
+4 public LinkedDocumentCollection crawl()
+5 private void crawl(LinkedDocumentCollection resultCollection)
+
+
+1.Сначала напишите класс LinkedDocument, который является прямым подклассом класса Document. Класс LinkedDocument представляет один
+специальный документ, относящийся к другим документам и на другие документы может ссылаться.
+У LinkedDocument есть идентификатор типа String, под названием ID. Этот ID уникален для LinkedDocument.Этот атрибут после начальной настройки (в конструкторе)
+неизменный.Напишите конструктор для класса LinkedDocument.Kонструктор имеет в качестве параметров, параметры конструктора надкласса(Document) и дополнительно
+ID из LinkedDocuments,для ID реализуйте также метод getter getID (). Конструктор вызывает сначала конструктор надкласса а затем иницилизирует локальные переменые.
+
+
+2. В классе LinkedDocument переопределите метод equals () надкласса.
+
+public boolean equals(Document doc)
+
+должен возвращать значение true, если doc имеет тип LinkedDocument и IDs обоих LinkedDocument
+идентичны. В противном случае метод equals () надкласса принимает решение о равенстве объектов.
+
+
+3.Поскольку теперь могут существовать сылки между различными документами, они также отражены в тексте документов. Непрерывный текст, состоящий только 
+из строчных букв (a-z) и пробелов, но также может содержать ссылки в виде link: documentA.
+Документ «Ганс»:
+Ганс обслужил семь ссылок: "dateisieben" семь лет со своим хозяином
+Документ «Волк»:
+когда-то была старая коза ссылка: "dateiziege", в котором было семь ссылок:"dateisieben" маленький мальчик.
+Таким образом, в документе «Ганс» есть текст «Ганс прослужил семь лет со своим хозяином» и ссылается на документ с  ID"dateisieben.".
+С другой стороны, у документа «Волк» есть текст «Когда-то был старый коза, у которого было семь маленьких детей» и ссылается на документы с файлами ID "dateisieben" и "dateiziege".
+
+Поэтому напишите метод
+
+private String[] findOutgoingIDs(String text)
+
+
+который извлекает связанные идентификаторы из основного текста документа (текст) и возвращает их как строковый массив. Для документа «Ганс» метод 
+возвращает массив ["dateisieben"], для документа «Wolf» он возвращает ["dateisieben","dateiziege"].Вызовите этот метод в конструкторе и
+сохраните результат в другом атрибуте.
+Обратите внимание, что методы класса String могут оказать большую помощь в этой задаче.
+
+
+
+4. Поскольку основной текст теперь содержит ссылки на другие документы, и конструктор надкласса был вызван с этим основным текстом,
+сылки на другие документы теперь также хранятся в WordCountsArray от LinkedDocuments 
+
+
+
+private void setLinkCountZero()
+
+который ищет WordCountsArray LinkedDocument для слов, представляющих ссылки (link: ...), и устанавливает частоту этих слов в 0.
+Вызовите этот метод в конструкторе в соответствующем месте. Таким образом, ссылки не учитываются при сравнении разных документов (с использованием метода Java computeSimilarity ())
+
+5. Класс LinkedDocumentCollection наследуется от класса DocumentCollection. LinkedDocumentCollection содержит только элементы типа LinkedDocument.
+Поэтому сначала переопределите методы в классе LinkedDocumentCollection
+
+public void prependDocument(Document doc)
+ 
+public void appendDocument(Document doc)
+
+надкласса. Новые реализации этих методов гарантируют, что к LinkedDocumentCollection добавлены только элементы LinkedDocument. 
+Однако LinkedDocument не следует добавлять, если он уже находится в LinkedDocumentCollection.
+
+
+6.Теперь мы реализовали LinkedDocumentCollection, который обеспечивает включение только элементов LinkedDocument.
+  Этот класс теперь используется для управления исходящими и входящими ссылками каждого LinkedDocument. 
+  Класс LinkedDocument получает два дополнительных атрибута типа LinkedDocumentCollection.
+  Эти атрибуты представляют собой исходящие или входящие ссылки соответствующего LinkedDocument.
+
+7.В классе LinkedDocument напишите метод
+
+public void addIncomingLink(LinkedDocument incomingLink)
+
+который добавляет входящую ссылку в LinkedDocumentCollection, которая представляет входящие ссылки текущего LinkedDocument. Обратите внимание, что LinkedDocuments не может ссылаться на себя.
