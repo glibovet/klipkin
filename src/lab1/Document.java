@@ -1,3 +1,4 @@
+package lab1;
 /**
  * The class {@code Document} represents a document.
  * 

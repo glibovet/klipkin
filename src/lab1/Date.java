@@ -1,3 +1,4 @@
+package lab1;
 /**
  * The class {@code Date} represents a date.
  * 

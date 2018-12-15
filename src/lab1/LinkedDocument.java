@@ -1,3 +1,4 @@
+package lab1;
 import java.util.Objects;
 
 public class LinkedDocument extends Document {

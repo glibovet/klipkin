@@ -1,12 +1,15 @@
-import static org.junit.Assert.*;
-
-import java.lang.reflect.Method;
+package lab1;
 
 import org.junit.Test;
 
+import java.lang.reflect.Method;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class TestSuchmaschine {
 
-  @org.junit.Test
+  @Test
   public void CheckEquals() throws Exception {
     boolean right = true;
     StringBuilder sb = new StringBuilder();

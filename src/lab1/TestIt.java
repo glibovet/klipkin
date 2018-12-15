@@ -1,3 +1,4 @@
+package lab1;
 /**
  * TestIt-Klasse.
  */

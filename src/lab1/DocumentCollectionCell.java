@@ -1,3 +1,4 @@
+package lab1;
 /**
  * Helper class for the cells of the {@link DocumentCollection}.
  * 

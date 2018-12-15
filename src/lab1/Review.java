@@ -1,3 +1,4 @@
+package lab1;
 /**
  * The class {@code Review} represents a review of a {@link Document}.
  * 

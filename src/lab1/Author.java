@@ -1,3 +1,5 @@
+package lab1;
+
 /**
  * The class {@code Author} represents an author of a {@link Document} or a
  * {@link Review}.

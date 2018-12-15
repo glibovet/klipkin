@@ -1,3 +1,4 @@
+package lab1;
 /**
  * This class represents a set words and its counts.
  * 
